@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String password;
 
   TextEditingController _emailTextController = new TextEditingController(text:"a.thompson887@btinternet.com");
-  TextEditingController _passwordTextController = new TextEditingController(text:"C0ttagesalt?");
+  TextEditingController _passwordTextController = new TextEditingController(text:"C0ttagesalt1");
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Lottie.asset('images/coffeecup.json'),
+              SizedBox(
+                  height: 200,
+                  child: Lottie.asset('images/coffeecup.json')),
               SizedBox(
                 height: 48.0,
               ),
@@ -71,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     showSpinner = true;
                   });
                   try {
-                    var _user = await _auth.currentUser;
+                    var _user = _auth.currentUser;
                     if(_user == null) {
                       _user = (await _auth.signInWithEmailAndPassword(
                           email: email, password: password)) as User;
@@ -81,6 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushNamed(context, HomeScreen.id);
                     });
                   } catch (e) {
+                    print(e);
                     setState(() {
                       showSpinner = false;
                     });
